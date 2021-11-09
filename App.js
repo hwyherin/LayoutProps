@@ -1,59 +1,126 @@
-import Rect from "react";
+import React, { useState } from "react";
 import { Image, Text, Button, ScrollView, View, StyleSheet } from "react-native";
 import  constants  from "expo-constants";
-import React from "react";
+
 
 const App = () => {
-  return (
-    //교수님 교수님께서 알려주신 대로 <>와 </>을 사용했을때 코드 전반에 빨간 밑줄이 보여
-    //구글링 해서 React.Fragment로 바꾸어 보았습니다. 
-    //그래도 여전히 13번째 줄에 오류가 뜨는데 이거 어떻게 해결해야할까요.
-    <React.Fragment>
+  const flexDirections = ['row', 'row-reverse', 'column', 'column-reverse'];
+
+  const justifyContents = [
+        'flex-start',
+        'flex-end',
+        'center',
+        'space-between',
+        'space-around',
+        'space-evenly',
+  ];
+
+  const [flexDirectionIndex, setflexDirection] = useState(0);
+  const [justifyContentIndex, setJustifyContent] = useState(0);
+  const [alignItemsIndex, setAlignItems] = useState(0);
+  const [DirectionIndex, setDirection] =  useState(0);
+  const [flexWrapIndex, setflexWrap] = useState(0);
+  
+  const hookedStyles = {
+      flexDirection:flexDirections[flexDirectionIndex],
+      justifyContent:justifyContents[justifyContentIndex],
+  }
+  const changeSetting = (value, options, setterfuction) => {
+    if (value == options.length -1) {
+      setterfuction(0);
+    } else {
+          setterfuction(value +1);
+    };
+
+    console.log(options[value]);
+  }
+
+  const Square = () => {
+    const sqStyle = {
+      width: 50,
+      height: 50,
+      backgroundColor: randomHexColor(),
+    };
+    return <View style={sqStyle} />;
+  };
+
+  const [Squares, setSquares] = useState([Square(),Square(),Square()]);
+
+  return(
+      <>
       
           <View style={{paddingTop: constants.statusBarHeight}}>
-          <View style={[styles.container, styles.playingSpace]}>
-          <Text> Hello </Text>
-          <Text> Hello </Text>
-          <Text> Hello </Text>
-          <Text> 
-              대중음악 딴따라라 폄하, 대표적인 차별 문제
-              미국 밥딜런은 노벨상도..우리는 왜 차별하나?
-              대중문화도 문화예술, 시대에 맞게 포함시켜야
-              면제가 아니라 국위선양을 위한 대체복무방식
-              전문연구요원 병역특례처럼 공정기준 마련 可
-              정치권은 공론장 여는 역할, 국민여론에 따라.. 
-            </Text>
-              <Image style={{
-                 width : 300,
-                height : 300,
-                resizeMode: 'contain'
-              }}
-              source={{uri : 'https://reactnative.dev/img/tiny_logo.png',}}
-              />
+          <View style={[styles.container, styles.playingSpace, hookedStyles]}>
+              {Squares.map(elem => elem)}
+          </View>
           </View>
           <ScrollView style={[styles.container]}>
             <View style={[styles.controlSpace]}> 
               <View style={[styles.buttonView]}> 
-                  <Button title="CHANGE FLEX DIRECTION"/> 
-              </View> 
+                  <Button title="CHANGE FLEX DIRECTION"
+                    onPress={() => {
+                      console.log("press CHANGE FLEX DIRECTION");
+                      changeSetting(flexDirectionIndex, flexDirections, setflexDirection) ;
+                      
+                    }}
+               /> 
+            </View> 
               <View style={[styles.buttonView]}> 
-                  <Button title="CHANGE JUSTIFY CONTENT"/>
+                  <Button title="CHANGE JUSTIFY CONTENT"
+                  onPress={() => {
+                    console.log("press CHANGE JUSTIFY CONTENT");
+                    changeSetting(justifyContentIndex, justifyContents, setJustifyContent) ;
+                    
+                    }
+                  }
+                  />
               </View>
               <View style={[styles.buttonView]}> 
-                  <Button title="CHANGE ALIGAN ITEMS"/>
+                  <Button title="CHANGE ALIGN ITEMS"
+                  onPress={() => {
+                    console.log("press CHANGE ALIGN ITEMS");
+                    changeSetting(alignItemsIndex, alignItemss, setAlignItems) ;
+                  }}
+                  />
               </View>
               <View style={[styles.buttonView]}> 
-                  <Button title="CHANGE DIRECTION"/>
+                  <Button title="CHANGE DIRECTION"
+                  onPress={() => {
+                    console.log("press CHANGE DIRECTION");
+                    changeSetting(DirectionIndex, Directions, setDirection) ;
+                   
+                  }}
+                  />
               </View>
               <View style={[styles.buttonView]}> 
-                  <Button title="CHANGE FLEX WRAP"/>
+                  <Button title="CHANGE FLEX WRAP"
+                  onPress={() => {
+                    console.log("press CHANGE FLEX WRAP");
+                    changeSetting(flexWrapIndex, flexWrapcontents, setflexWrap);
+                    
+                  }}
+                  />
               </View>
               <View style={[styles.buttonView]}> 
-                  <Button title="ADD SQUARE"/>
+                  <Button title="ADD SQUARE"
+                  onPress={() => {
+                    console.log("press ADD SQUARE");
+                
+                  }}
+                  />
               </View>
+            <View style={[styles.buttonView]}> 
+                <Button title="DELETE SQUARE"
+                  onPress={() => {
+                    console.log("press DELETE SQUARE");
+                
+                  }}
+                  />    
+          </View>
       </View>
       </ScrollView>
-  </React.Fragment>
+      
+    </>
 );
 };
 
@@ -79,5 +146,11 @@ const styles = StyleSheet.create({
   }
   
 })
+
+const randomHexColor = () => {
+  return '#000000'.replace(/0/g, () => {
+    return (~~(Math.random() * 16)).toString(16);
+  });
+}
 
 export default App;
