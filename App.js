@@ -14,16 +14,24 @@ const App = () => {
         'space-around',
         'space-evenly',
   ];
+  
+  const directions =["LTR","RTL"];
+  const alignItems =['stretch','flex-start','flex-end','center','baseline'];
+  const flexWraps =['wrap', 'nowrap','wrap-reverse'];
 
   const [flexDirectionIndex, setflexDirection] = useState(0);
   const [justifyContentIndex, setJustifyContent] = useState(0);
-  const [alignItemsIndex, setAlignItems] = useState(0);
-  const [DirectionIndex, setDirection] =  useState(0);
+  const [alignItemIndex, setAlignItems] = useState(0);
+  const [directionIndex, setDirection] =  useState(0);
   const [flexWrapIndex, setflexWrap] = useState(0);
   
   const hookedStyles = {
       flexDirection:flexDirections[flexDirectionIndex],
       justifyContent:justifyContents[justifyContentIndex],
+      alignItems:alignItems[alignItemIndex],
+      direction:directions[directionIndex],
+      flexWrap: flexWraps[flexWrapIndex],
+
   }
   const changeSetting = (value, options, setterfuction) => {
     if (value == options.length -1) {
@@ -44,16 +52,17 @@ const App = () => {
     return <View style={sqStyle} />;
   };
 
-  const [Squares, setSquares] = useState([Square(),Square(),Square()]);
+  const [Squares, setSquares] = useState([Square(),Square(),Square(),Square(),Square(),Square(),Square(),Square(),Square()]);
 
   return(
       <>
       
-          <View style={{paddingTop: constants.statusBarHeight}}>
+          <View style={{paddingTop: constants.statusBarHeight}}> 
+
           <View style={[styles.container, styles.playingSpace, hookedStyles]}>
               {Squares.map(elem => elem)}
           </View>
-          </View>
+
           <ScrollView style={[styles.container]}>
             <View style={[styles.controlSpace]}> 
               <View style={[styles.buttonView]}> 
@@ -79,7 +88,7 @@ const App = () => {
                   <Button title="CHANGE ALIGN ITEMS"
                   onPress={() => {
                     console.log("press CHANGE ALIGN ITEMS");
-                    changeSetting(alignItemsIndex, alignItemss, setAlignItems) ;
+                    changeSetting(alignItemIndex, alignItems, setAlignItems) ;
                   }}
                   />
               </View>
@@ -87,7 +96,7 @@ const App = () => {
                   <Button title="CHANGE DIRECTION"
                   onPress={() => {
                     console.log("press CHANGE DIRECTION");
-                    changeSetting(DirectionIndex, Directions, setDirection) ;
+                    changeSetting(directionIndex, directions, setDirection) ;
                    
                   }}
                   />
@@ -96,7 +105,7 @@ const App = () => {
                   <Button title="CHANGE FLEX WRAP"
                   onPress={() => {
                     console.log("press CHANGE FLEX WRAP");
-                    changeSetting(flexWrapIndex, flexWrapcontents, setflexWrap);
+                    changeSetting(flexWrapIndex, flexWraps, setflexWrap);
                     
                   }}
                   />
@@ -119,6 +128,7 @@ const App = () => {
           </View>
       </View>
       </ScrollView>
+      </View>
       
     </>
 );
