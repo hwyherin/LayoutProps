@@ -47,12 +47,12 @@ const App = () => {
     const sqStyle = {
       width: 50,
       height: 50,
-      backgroundColor: randomHexColor(),
+      backgroundColor: randomHexColor()
     };
     return <View style={sqStyle} />;
   };
 
-  const [Squares, setSquares] = useState([Square(),Square(),Square(),Square(),Square(),Square(),Square(),Square(),Square()]);
+  const [squares, setSquares] = useState([Square(),Square(),Square()]);
 
   return(
       <>
@@ -60,7 +60,7 @@ const App = () => {
           <View style={{paddingTop: constants.statusBarHeight}}> 
 
           <View style={[styles.container, styles.playingSpace, hookedStyles]}>
-              {Squares.map(elem => elem)}
+              {squares.map(elem => elem)}
           </View>
 
           <ScrollView style={[styles.container]}>
@@ -114,7 +114,7 @@ const App = () => {
                   <Button title="ADD SQUARE"
                   onPress={() => {
                     console.log("press ADD SQUARE");
-                
+                    setSquares([...squares, Square()]);
                   }}
                   />
               </View>
@@ -122,7 +122,7 @@ const App = () => {
                 <Button title="DELETE SQUARE"
                   onPress={() => {
                     console.log("press DELETE SQUARE");
-                
+                    setSquares(squares.filter((v, i) => i != squares.length - 1 ));
                   }}
                   />    
           </View>
