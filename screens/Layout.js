@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Image, Text, Button, ScrollView, View, StyleSheet } from "react-native";
+import {  Image, Text, Button, ScrollView, View, StyleSheet } from "react-native";
 import  constants  from "expo-constants";
 
 
-const Layout = () => {
+const Layout = (props) => {
+  const {navigation} = props;
   const flexDirections = ['row', 'row-reverse', 'column', 'column-reverse'];
 
   const justifyContents = [
@@ -59,30 +60,37 @@ const Layout = () => {
       
            
 
-          <View style={[styles.container, styles.playingSpace, hookedStyles]}>
+          <View style={[styles.container, styles.playingSpace, hookedStyles ]}>
               {squares.map(elem => elem)}
           </View>
 
           <ScrollView style={[styles.container]}>
             <View style={[styles.controlSpace]}> 
               <View style={[styles.buttonView]}> 
-                  <Button title="CHANGE FLEX DIRECTION"
+                  <Button title="CHANGE FLEX DIRECTION" 
                     onPress={() => {
                       console.log("press CHANGE FLEX DIRECTION");
+                      flexDirections[flexDirectionIndex];
                       changeSetting(flexDirectionIndex, flexDirections, setflexDirection) ;
                       
                     }}
-               /> 
+               />
+                <Text style={styles.buttonText}>
+                  {flexDirections[flexDirectionIndex]}
+                </Text>
             </View> 
               <View style={[styles.buttonView]}> 
                   <Button title="CHANGE JUSTIFY CONTENT"
-                  onPress={() => {
+                                  onPress={() => {
                     console.log("press CHANGE JUSTIFY CONTENT");
                     changeSetting(justifyContentIndex, justifyContents, setJustifyContent) ;
                     
                     }
                   }
                   />
+                <Text style={styles.buttonText}>
+                    {justifyContents[justifyContentIndex]}
+                </Text>
               </View>
               <View style={[styles.buttonView]}> 
                   <Button title="CHANGE ALIGN ITEMS"
@@ -91,6 +99,9 @@ const Layout = () => {
                     changeSetting(alignItemIndex, alignItems, setAlignItems) ;
                   }}
                   />
+                <Text style={styles.buttonText}>
+                  {alignItems[alignItemIndex]}
+                </Text>
               </View>
               <View style={[styles.buttonView]}> 
                   <Button title="CHANGE DIRECTION"
@@ -100,6 +111,9 @@ const Layout = () => {
                    
                   }}
                   />
+              <Text style={styles.buttonText}>
+                {directions[directionIndex]}
+              </Text>    
               </View>
               <View style={[styles.buttonView]}> 
                   <Button title="CHANGE FLEX WRAP"
@@ -109,6 +123,9 @@ const Layout = () => {
                     
                   }}
                   />
+                  <Text style={styles.buttonText}>
+                    {flexWraps[flexWrapIndex]}
+                  </Text>
               </View>
               <View style={[styles.buttonView]}> 
                   <Button title="ADD SQUARE"
@@ -124,9 +141,18 @@ const Layout = () => {
                     console.log("press DELETE SQUARE");
                     setSquares(squares.filter((v, i) => i != squares.length - 1 ));
                   }}
-                  />    
+                  />   
+            </View> 
+            <View style={[styles.buttonView]}> 
+                <Button title="GO TO HOME"
+                  onPress={() => {
+                    console.log("press GO TO HOME");
+                    navigation.navigate('Home')
+                  }}
+                  />          
           </View>
       </View>
+
       </ScrollView>
       
       
@@ -153,8 +179,14 @@ const styles = StyleSheet.create({
   buttonView: { 
     width:'50%', 
     padding: 10, 
+  },
+
+  buttonText: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   }
-  
+    
 })
 
 const randomHexColor = () => {

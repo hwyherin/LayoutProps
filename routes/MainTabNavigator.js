@@ -1,15 +1,12 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-
-
-import Layout from '../screens/Layout';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from '../screens/Home';
+import Layout from '../screens/Layout';
 
+const Nav =createBottomTabNavigator();
 
-const Nav = createStackNavigator();
-
-function MainStackNavigator() {
+function MainTabNavigator() {
     return (
         <NavigationContainer>        
             <Nav.Navigator 
@@ -26,12 +23,10 @@ function MainStackNavigator() {
                     component={Home}
                     options={{ title: 'home Screen'}}
                 />
-                 
-            
-
+                
 
             </Nav.Navigator>
         </NavigationContainer>
     )
 }
-export default MainStackNavigator
+export default MainTabNavigator
