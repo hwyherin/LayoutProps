@@ -3,6 +3,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from '../screens/Home';
 import Layout from '../screens/Layout';
+import Weather from '../screens/Weather';
+import Custom from '../screens/Custom';
 
 const Nav =createBottomTabNavigator();
 
@@ -23,7 +25,17 @@ function MainTabNavigator() {
                     component={Home}
                     options={{ title: 'home Screen'}}
                 />
-                
+                <Nav.Screen 
+                    name = "Weather"
+                    component={Weather}
+                    options={{ title: 'weather Screen'}}
+                /> 
+
+                <Nav.Screen 
+                    name = "Custom"
+                    component={Custom}
+                    options={{ title: 'layout Custom'}}
+                />
 
             </Nav.Navigator>
         </NavigationContainer>

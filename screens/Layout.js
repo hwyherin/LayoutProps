@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white', 
     borderColor: 'blue', 
     borderWidth: 3,
-},
+  },
   controlSpace: { 
     flexDirection: 'row', 
     flexWrap: 'wrap', 
