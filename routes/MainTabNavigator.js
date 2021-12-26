@@ -5,6 +5,7 @@ import Home from '../screens/Home';
 import Layout from '../screens/Layout';
 import Weather from '../screens/Weather';
 import Custom from '../screens/Custom';
+import New from '../screens/New';
 
 const Nav =createBottomTabNavigator();
 
@@ -34,7 +35,12 @@ function MainTabNavigator() {
                 <Nav.Screen 
                     name = "Custom"
                     component={Custom}
-                    options={{ title: 'layout Custom'}}
+                    options={{ title: 'Custom'}}
+                />
+                <Nav.Screen 
+                    name = "New"
+                    component={New}
+                    options={{ title: 'New Screen'}}
                 />
 
             </Nav.Navigator>
